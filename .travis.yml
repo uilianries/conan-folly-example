@@ -1,0 +1,13 @@
+os: linux
+dist: xenial
+language: python
+python: "3.7"
+services:
+  - docker
+env:
+  CONAN_GCC_VERSIONS=8
+  CONAN_DOCKER_IMAGE=conanio/gcc8
+install:
+  - pip install conan conan_package_tools bincrafters_package_tools
+script:
+  - python build.py
