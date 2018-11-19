@@ -10,4 +10,8 @@ env:
 install:
   - pip install conan conan_package_tools bincrafters_package_tools
 script:
-  - python build.py
+  - mkdir build && cd build
+  - conan install ..
+  - cmake ..
+  - cmake --build .
+  - bin/folly_example
