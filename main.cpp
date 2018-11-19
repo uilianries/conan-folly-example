@@ -6,16 +6,16 @@
 #include <folly/executors/ThreadedExecutor.h>
 #include <folly/FBString.h>
 
-static void print_uri(const folly::fbstring& value) {
-    const auto authority = folly::format("Callback Future: {}", value);
-    std::cout << authority << std::endl;
+static void print(const folly::fbstring& value) {
+    const auto formatted = folly::format("Callback Future: {}", value);
+    std::cout << formatted << std::endl;
 }
 
 int main() {
     folly::ThreadedExecutor executor;
-    folly::Promise<std::string> promise;
-    folly::Future<std::string> future = promise.getSemiFuture().via(&executor);
-    folly::Future<folly::Unit> unit = std::move(future).thenValue(print_uri);
+    folly::Promise<folly::fbstring> promise;
+    folly::Future<folly::fbstring> future = promise.getSemiFuture().via(&executor);
+    folly::Future<folly::Unit> unit = std::move(future).thenValue(print);
     promise.setValue("Hello World!");
     std::move(unit).get();
     return EXIT_SUCCESS;
