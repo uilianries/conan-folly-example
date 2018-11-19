@@ -5,7 +5,8 @@ python: "3.7"
 install:
   - pip install conan
 before_script:
-  - conan user
+  - conan profile new default --detect
+  - conan profile update settings.compiler.libcxx=libstdc++11 default
   - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 script:
   - mkdir build && cd build
